@@ -7,6 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+txt_name = "ChineseArticleData.txt"
+
 driver = webdriver.Chrome()
 
 cnki = 'https://chn.oversea.cnki.net/kns/defaultresult/index'
@@ -26,11 +28,16 @@ df_row = []
 for j in range(120):
     for i in list(range(1,51)):
         article_element = f"/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[{i}]/td[2]/a"
+        #/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[1]/td[2]/a
         driver.find_element(By.XPATH, article_element).click()
         time.sleep(30)
         
         driver.switch_to.window(driver.window_handles[1])
-        page_html = driver.page_source
+        try:
+            page_html = driver.page_source
+        except:
+            time.sleep(30)
+            page_html = driver.page_source
         soup = BeautifulSoup(page_html, "html.parser")
         
         wx_tit = soup.find("div", class_="wx-tit")
@@ -63,7 +70,7 @@ for j in range(120):
                 if p_element:
                     classification_number = p_element.get_text()
                     
-        row = [h1_text, kw_p_list, keywords_text, classification_number]
+        row = [h1_text, abs_text, keywords_text, classification_number]
         print(h1_text)
         df_row.append(row)
             
@@ -72,11 +79,17 @@ for j in range(120):
         driver.switch_to.window(driver.window_handles[0])
         time.sleep(2)
         
+        with open(txt_name, 'a', encoding='utf-8') as file:
+            for items in row:
+                file.write(items + ':;:')
+            file.write('\n')
+        
     df = pd.DataFrame(df_row)
-    df.to_csv('ChineseDatabase.csv')
+    #df.to_csv('ChineseDatabase.csv', encoding='utf-8')
     
     next_page = '/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[9]'
     driver.find_element(By.XPATH, next_page).click()
+    time.sleep(30)
 
 
 
