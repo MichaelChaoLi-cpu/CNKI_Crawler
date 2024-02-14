@@ -31,18 +31,10 @@ sudo apt-get install chromium-chromedriver
 google-chrome --version
 chromedriver --version
 
-nohup python CNKI_Crawler_headless.py >> log.txt &
+nohup python CNKI_Crawler_headless-readtxt.py 0 4 >> log.txt &
 
-
-#ipython
-
-#from selenium import webdriver
-
-#chrome_options = webdriver.ChromeOptions()
-#chrome_options.binary_location = '/usr/bin/chromium-browser'  # Specify the path to chromedriver
-#chrome_options.add_argument('--headless') 
-
-#driver = webdriver.Chrome(options=chrome_options)
-
-# Now you can use the driver object to interact with the browser
-#driver.get("https://www.example.com")
+# crawler position next
+# 5 0 4
+# 6 4 4
+# 7 8 4
+# 8 12 4

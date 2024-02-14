@@ -77,25 +77,17 @@ for journal_name in journal_name_list:
     
     
     for j in range(30):
-        for i in list(range(1,51,5)):
+        for i in list(range(1,51,2)):
             article_element = f"/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[{i}]/td[2]/a"
             driver.find_element(By.XPATH, article_element).click()
             time.sleep(1)
             article_element = f"/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[{i+1}]/td[2]/a"
             driver.find_element(By.XPATH, article_element).click()
             time.sleep(1)
-            article_element = f"/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[{i+2}]/td[2]/a"
-            driver.find_element(By.XPATH, article_element).click()
-            time.sleep(1)
-            article_element = f"/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[{i+3}]/td[2]/a"
-            driver.find_element(By.XPATH, article_element).click()
-            time.sleep(1)
-            article_element = f"/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[{i+4}]/td[2]/a"
-            driver.find_element(By.XPATH, article_element).click()
             time.sleep(50)
             
             record_list = []
-            for windows in list(range(5)):
+            for windows in list(range(2)):
                 driver.switch_to.window(driver.window_handles[1])
                 try:
                     page_html = driver.page_source
