@@ -32,8 +32,7 @@ driver.get(cnki)
 
 first_time = True
 
-journal_name_list = [  '北京大学学报(哲学社会科学版)', 
-                     '北京电影学院学报', '北京工商大学学报(社会科学版)',
+journal_name_list = [ '北京电影学院学报', '北京工商大学学报(社会科学版)',
                      '北京工业大学学报(社会科学版)', '北京联合大学学报(人文社会科学版)', 
                      '北京社会科学', '北京师范大学学报(社会科学版)']
 
@@ -77,7 +76,7 @@ for journal_name in journal_name_list:
     
     
     for j in range(30):
-        for i in list(range(1,51,2)):
+        for i in list(range(1,51)):
             try:
                 article_element = f"/html/body/div[5]/div[2]/div[2]/div[2]/form/div/table/tbody/tr[{i}]/td[2]/a"
                 driver.find_element(By.XPATH, article_element).click()
@@ -140,17 +139,17 @@ for journal_name in journal_name_list:
                 break
             except Exception as e:
                 print('fail!')
-            
+                time.sleep(10)
             
             driver.switch_to.window(driver.window_handles[0])
             time.sleep(2)
             
-            record_df = pd.DataFrame(record_list)
-            record_df.columns = ['Title', 'Abstract', 'Keywords', 'Classification']
+            #record_df = pd.DataFrame(record_list)
+            #record_df.columns = ['Title', 'Abstract', 'Keywords', 'Classification']
             #df.to_csv('ChineseDatabase.csv', encoding='utf-8')
-            to_gbq(record_df, destination_table = "REPT_data.REPT_TextMatcher_DataCrawler_RawData_Chinese",
-                   project_id=project_id, if_exists="append",
-                   credentials=credentials, progress_bar=False)
+            #to_gbq(record_df, destination_table = "REPT_data.REPT_TextMatcher_DataCrawler_RawData_Chinese",
+            #       project_id=project_id, if_exists="append",
+            #       credentials=credentials, progress_bar=False)
         #/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[11]
         try:
             next_page = '/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[11]'
@@ -159,7 +158,7 @@ for journal_name in journal_name_list:
             next_page = '/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[9]'
             driver.find_element(By.XPATH, next_page).click()
         time.sleep(30)
-    time.sleep(60)                       
+    time.sleep(60)           
             
             
 """

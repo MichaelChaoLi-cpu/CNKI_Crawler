@@ -16,8 +16,8 @@ driver = webdriver.Chrome()
 cnki = 'https://chn.oversea.cnki.net/kns/defaultresult/index'
 driver.get(cnki)
 
-journal_name_list = [  '长江流域资源与环境',
-                     '城市发展研究', '城市规划学刊', '城市问题']
+journal_name_list = [ '江苏行政学院学报', '江西财经大学学报', 
+                     '江西社会科学', '江西师范大学学报(哲学社会科学版) ']
 
 for journal_name in journal_name_list:
     search_box = "/html/body/div[4]/div/div[2]/div[1]/input[1]"
@@ -114,7 +114,7 @@ for journal_name in journal_name_list:
 '财经问题研究',
 '财贸经济',
 '财贸研究', '财政研究',
-                     '产业经济研究',
+'产业经济研究',
 """
 
 

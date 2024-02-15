@@ -32,8 +32,9 @@ driver.get(cnki)
 
 first_time = True
 
-journal_name_list = [ '地理科学进展', '法商研究', '法学论坛',
-                     '法学评论', '当代传播', '出版发行研究', '法制与社会发展']
+journal_name_list = [ '法商研究', '法学论坛',
+                     '法学评论', '当代传播', 
+                     '出版发行研究', '法制与社会发展']
 
 
 
@@ -138,16 +139,17 @@ for journal_name in journal_name_list:
                 break
             except Exception as e:
                 print('fail!')
+                time.sleep(10)
             
             driver.switch_to.window(driver.window_handles[0])
             time.sleep(2)
             
-            record_df = pd.DataFrame(record_list)
-            record_df.columns = ['Title', 'Abstract', 'Keywords', 'Classification']
+            #record_df = pd.DataFrame(record_list)
+            #record_df.columns = ['Title', 'Abstract', 'Keywords', 'Classification']
             #df.to_csv('ChineseDatabase.csv', encoding='utf-8')
-            to_gbq(record_df, destination_table = "REPT_data.REPT_TextMatcher_DataCrawler_RawData_Chinese",
-                   project_id=project_id, if_exists="append",
-                   credentials=credentials, progress_bar=False)
+            #to_gbq(record_df, destination_table = "REPT_data.REPT_TextMatcher_DataCrawler_RawData_Chinese",
+            #       project_id=project_id, if_exists="append",
+            #       credentials=credentials, progress_bar=False)
         #/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[11]
         try:
             next_page = '/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[11]'
@@ -156,8 +158,7 @@ for journal_name in journal_name_list:
             next_page = '/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[9]'
             driver.find_element(By.XPATH, next_page).click()
         time.sleep(30)
-    time.sleep(60)                       
-            
+    time.sleep(60)
             
 """
 # crawler-1
