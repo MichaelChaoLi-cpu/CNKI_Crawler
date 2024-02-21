@@ -167,7 +167,7 @@ for journal_name in journal_name_list:
         except:
             next_page = '/html/body/div[5]/div[2]/div[2]/div[2]/form/div/div[2]/a[9]'
             driver.find_element(By.XPATH, next_page).click()
-        time.sleep(30)
+        time.sleep(60)
     time.sleep(60)                       
             
 
